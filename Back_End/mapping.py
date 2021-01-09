@@ -28,7 +28,7 @@ print("Time to teddy G's place " + time)
 # print(type(fin))
 def distance(start, end):
     req = requests.get(url + "origins=" + start + "&destinations=" + end + "&key=" + api_key) 
-    time = r.json()["rows"][0]["elements"][0]["duration"]["text"]
+    time = req.json()["rows"][0]["elements"][0]["duration"]["text"]
     piece = time.split()
     ans = int(piece[0])
     return ans
