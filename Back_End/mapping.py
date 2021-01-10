@@ -33,5 +33,3 @@ def distance(start, end):
     ans = int(piece[0])
     return ans
 
-print(distance(begin, finish))
-print(type(distance(begin, finish)))

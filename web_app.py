@@ -62,6 +62,7 @@ def getList():
     update_order(orderToAdd, request.form['first'], request.form['last'])
     return ""
 
+#Gets address from driver
 @app.route("/driver/", methods=["GET", "POST"])
 def driver():
     if request.method == "POST":
@@ -76,8 +77,10 @@ def driver():
 #     print(request.form)
 #     redirect(url_for("lists"), address=request.form['address'])
 
+#Shows all lists in increasing distances
 @app.route("/lists/<address>/")
 def lists(address):
+    give_me_orders(address)
     return render_template("lists.html", orders = orders)
 
 if __name__ == "__main__":

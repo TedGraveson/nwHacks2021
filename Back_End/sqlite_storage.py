@@ -1,5 +1,6 @@
 import sqlite3
 import datetime
+from mapping import distance
 # line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
 # connect = sqlite3.connect("User_order.db")
@@ -128,6 +129,43 @@ def query_driver(first, last):
         c.execute("SELECT * FROM user WHERE first = :first AND last = :last", {'first':first, 'last': last})
         tup = c.fetchone()
     return tup[2]
+
+def query_names(address):
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("SELECT * FROM ore WHERE address = :address", {'address':address})
+        tup = c.fetchone()
+        first = tup[0]
+        last = tup[1]
+    return first, last
+
+def take_first(lis):
+    return lis[0]
+
+def distance_compare(address, fName, lName, res_user, res_order):
+    valid = []
+    for i in range(len(res_order)):
+        if((fName != res_order[i][0]) and (lName != res_order[i][1])):
+            dist = distance(address, res_order[i][6])
+            fir = res_order[i][0]
+            las = res_order[i][1]
+            res = [dist, fir, las]
+            valid.append(res)
+
+    valid.sort(key=take_first)
+    #at this point there should be a list of of people that are of the opposite is_Driver bool
+    #and do not have the exact same name as the person we are checking (this could imply) a repeat
+    #order if the aforementioned statement were true. The final thing we do is sort the list based
+    #on the distance, so now the first index will be the lowest distance away (by extension we can
+    # later call the person since the list also stores the person's first and last name).
+    # this means that index 0 in valid is the closest possible person to the address passed in.
+
+    return valid
+
+#okay i kinda got lazy but like for the unique id think I still think the global counter
+#could work despite python being a pain to deal with with the global vars. Hopefully this
+#work will be semi useful (???)
 # test = list_to_string(orders[0]["items"])
 # print(test)
 # print(type(test))
