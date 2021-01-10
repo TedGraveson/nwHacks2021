@@ -31,13 +31,11 @@ users = [{
 orders = [
         {
             "id" : 123,
-            "size" : 10,
             "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
             "tip": 10,
             "address" : "8989 documentation lane"
         },
         {   "id" : 456,
-            "size" : 1000,
             "items" : ["OJ", "milk"],
             "tip": 1000,
             "address" : "8989 documentation lane"
