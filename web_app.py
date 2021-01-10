@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
 sys.path.append("Back_end/")
-import sqlite_storage
+from sqlite_storage import insert_user
 
 app = Flask (__name__)
 api = Api(app)
@@ -35,7 +35,7 @@ def login():
     #User form submission on home page
     if request.method == "POST":
         print(request.form['driver'])
-        sqlite_storage.insert_user(request.form)
+        insert_user(request.form)
         if request.form["driver"] == "1":
             
             return redirect(url_for("driver"))
