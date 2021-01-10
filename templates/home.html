@@ -1,50 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <section class="container text-center">
-        <h2>Welcome to<br><h2>
-        <h1>On the Way!</h1>
-    </section>
-    <form class="justify-content-center" id = "home-form" method= "POST" action="#">
-        <div class="form-group row">
-            <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
-            <div class="col-sm-10">
-                <input name="firstName" type="text" class="form-control" id="firstName" placeholder="First">
-            </div>
-            <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
-            <div class="col-sm-10">
-                <input type="text" name="lastName" class="form-control" id="last-name" placeholder="Last">
-            </div>
+<div class="container bg-light">
+    <div class="jumbotron jumbotron-fluid text-center">
+        <div class="container">
+            <h1 class="display-4">On the way!</h1>
+            <p class="lead">The coolest delivery service ever.</p>
         </div>
-            
-        <fieldset class="form-group">
-            <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Status</legend>
-            <div class="col-sm-10">
-                <div class="form-check">
-                    <input name="driver" class="form-check-input" type="radio" name="driver" id="gridRadios1" value=1 checked>
-                    <label class="form-check-label" for="gridRadios1">
-                        I'm on the way
-                    </label>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <form class="w-50 p-3"  id = "home-form" method= "POST" action="#">
+            <div class="form-group row">
+                <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                    <input name="firstName" type="text" class="form-control" id="firstName" placeholder="First" required>
                 </div>
-                <div class="form-check">
-                    <input name="driver" class="form-check-input" type="radio" name="list" id="gridRadios2" value=0>
-                    <label class="form-check-label" for="gridRadios2">
-                        I have a list
-                    </label>
-                </div>
+                <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                    <input type="text" name="lastName" class="form-control" id="last-name" placeholder="Last" required>
                 </div>
             </div>
-        </fieldset>
-        <div class="form-group row">
-            <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+            <fieldset class="form-group">
+                <div class="row d-flex justify-content-between">
+                    <legend class="col-form-label col-sm-2 pt-0">Status</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check-inline">
+                            <input name="driver" class="form-check-input" type="radio" name="driver" id="gridRadios1" value=1 checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                I'm on the way
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input name="driver" class="form-check-input" type="radio" name="list" id="gridRadios2" value=>
+                            <label class="form-check-label" for="gridRadios2">
+                                I have a list
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                </div>
             </div>
-        </div>
-    </form>
-    
+        </form>
+    </div>
 
 {% endblock %}
 {%block scripts %}
-<script src="{{url_for('static', filename='scripts/home.js')}}"></script>
 {% endblock %}

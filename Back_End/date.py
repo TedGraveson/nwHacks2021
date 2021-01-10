@@ -22,15 +22,15 @@ def string_to_date(string):
     ans = datetime.datetime.strptime(string, '%Y-%m-%d %H:%M')
     return ans
 
-# x= string_to_date(date_time_str)
-# print(x)
-# print(type(x))
+x= string_to_date(date_time_str)
+print(x)
+print(type(x))
 
-# y= date_to_string(x)
+y= date_to_string(x)
 
-# print(y)
-# print(type(y))
+print(y)
+print(type(y))
 
-# z = string_to_date(y)
-# print(z)
-# print(type(z))
+z = string_to_date(y)
+print(z)
+print(type(z))
