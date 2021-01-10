@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
 sys.path.append("Back_end/")
-from sqlite_storage import insert_user, create_order
+from sqlite_storage import insert_user, format_order
 import json
 
 app = Flask (__name__)
@@ -57,9 +57,8 @@ def makeList(first, last):
 @app.route("/getList/", methods = ['POST'])
 def getList():    
     #Storing to SQL
-    print(request.form)
-    orders.append(create_order(request.forms))
-    print(orders)
+    orderToAdd = format_order(request.form)
+    print(orderToAdd)
     return ""
 
 @app.route("/driver/", methods=["GET", "POST"])

@@ -70,14 +70,15 @@ orders = [
         }
 ]
 
-def create_order(list_post):
+def format_order(list_post):
     order = {}
     order['orderID'] = 123
     order['items'] = list_post['items']
     order['tip'] = list_post['tip']
     order['address'] = list_post['address']
-    order['timeStart'] = "lmao"
-    order['timeEnd'] - date_fix(list_post['date'])
+    order['time_start'] = "lmao"
+    order['time_end'] = date_fix(list_post['date'])
+    return order
 
 def insert_user(user):
     conn = sqlite3.connect("User_order.db")
