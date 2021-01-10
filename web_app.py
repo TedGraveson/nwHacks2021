@@ -50,17 +50,27 @@ def makeList():
 
 #Handles POST request from makeList, where user creates list
 @app.route("/getList/", methods = ['POST'])
-def getList():
-    print(request.form)
+def getList():    
     #Storing to SQL
+    insert_user(request.form)
     return request.form['items']
 
-@app.route("/driver/")
+@app.route("/driver/", methods=["GET", "POST"])
 def driver():
-    return render_template("driver.html", orders=orders)
+    if request.method == "POST":
+        addr = request.form["address"]
+        return redirect(url_for("lists", address=addr))
+    else:
+        return render_template("driver.html", orders=orders)
 
-@app.route("/lists/")
-def lists():
+# #Will be used for ordering by distance
+# @app.route("/getDistance/")
+# def getDistance():
+#     print(request.form)
+#     redirect(url_for("lists"), address=request.form['address'])
+
+@app.route("/lists/<address>/")
+def lists(address):
     return render_template("lists.html", orders = orders)
 
 if __name__ == "__main__":
