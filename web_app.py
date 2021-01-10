@@ -51,9 +51,9 @@ def makeList():
 #Handles POST request from makeList, where user creates list
 @app.route("/getList/", methods = ['POST'])
 def getList():
-    print(request.form['list'])
+    print(request.form)
     #Storing to SQL
-    return request.form['list']
+    return request.form['items']
 
 @app.route("/driver/")
 def driver():
