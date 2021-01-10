@@ -1,3 +1,4 @@
+from Back_End.sqlite_storage import update_order
 from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
@@ -35,7 +36,6 @@ def home():
 def login():
     #User form submission on home page
     if request.method == "POST":
-        print(request.form['driver'])
         insert_user(request.form)
         if request.form["driver"] == "1":
             return redirect(url_for("driver"))
@@ -59,6 +59,7 @@ def getList():
     #Storing to SQL
     orderToAdd = format_order(request.form)
     print(orderToAdd)
+    update_order(orderToAdd, request.form['first'], request.form['last'])
     return ""
 
 @app.route("/driver/", methods=["GET", "POST"])

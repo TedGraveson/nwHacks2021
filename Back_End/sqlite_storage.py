@@ -1,30 +1,29 @@
 import sqlite3
 import datetime
-from overnight import date_fix
 # line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
-# connect = sqlite3.connect("User_order.db")
-# c = connect.cursor()
-# c.execute("""CREATE TABLE user(
-#                 first TEXT,
-#                 last TEXT,
-#                 driver INTEGER
-#                 )""")
+connect = sqlite3.connect("User_order.db")
+c = connect.cursor()
+c.execute("""CREATE TABLE user(
+                first TEXT,
+                last TEXT,
+                driver INTEGER
+                )""")
 
-# c.execute("""CREATE TABLE ore(
-#                 first TEXT,
-#                 last TEXT,
-#                 orderID INTEGER,
-#                 items TEXT,
-#                 time_start TEXT,
-#                 timeEnd TEXT,
-#                 address TEXT,
-#                 tip INTEGER)
-#         """)
+c.execute("""CREATE TABLE ore(
+                first TEXT,
+                last TEXT,
+                orderID INTEGER,
+                items TEXT,
+                time_start TEXT,
+                timeEnd TEXT,
+                address TEXT,
+                tip INTEGER)
+        """)
 
-# connect.commit()
+connect.commit()
 
-# connect.close()
+connect.close()
 
 users = [{
                 "firstName" : "Ted",
@@ -77,7 +76,7 @@ def format_order(list_post):
     order['tip'] = list_post['tip']
     order['address'] = list_post['address']
     order['time_start'] = "lmao"
-    order['time_end'] = date_fix(list_post['date'])
+    order['timeEnd'] = date_fix(list_post['date'])
     return order
 
 def insert_user(user):
@@ -89,7 +88,10 @@ def insert_user(user):
         c.execute("INSERT INTO ore VALUES(:first, :last, :orderID, :items, :time_start, :timeEnd,:address, :tip)",
         {'first':user["firstName"], 'last':user["lastName"],'orderID':1,'items':"", 'time_start': "", 'timeEnd':"", 'address':"",'tip':0})
 
-
+def date_fix(date):
+    string = date.split('T')
+    ans = string[0] + " " + string[1]
+    return ans
 
 def list_to_string(lis):
     string = ""
@@ -99,7 +101,7 @@ def list_to_string(lis):
 
 def update_order(order, first, last):
     x = datetime.datetime.now()
-    lis = list_to_string(orders[0]["items"])
+    lis = list_to_string(order["items"])
     conn = sqlite3.connect("User_order.db")
     c=conn.cursor()
     with conn:
