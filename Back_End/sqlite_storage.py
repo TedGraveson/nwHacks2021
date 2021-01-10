@@ -1,6 +1,6 @@
 import sqlite3
-
-#line 5-26 is the cmd to create the databases, errors will occur 
+import datetime
+# line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
 # connect = sqlite3.connect("User_order.db")
 # c = connect.cursor()
@@ -13,10 +13,10 @@ import sqlite3
 # c.execute("""CREATE TABLE ore(
 #                 first TEXT,
 #                 last TEXT,
-#                 id INTEGER,
-#                 item TEXT,
+#                 orderID INTEGER,
+#                 items TEXT,
 #                 time_start TEXT,
-#                 time_end TEXT,
+#                 timeEnd TEXT,
 #                 address TEXT,
 #                 tip INTEGER)
 #         """)
@@ -54,15 +54,18 @@ users = [{
 
 orders = [
         {
-            "id" : 123,
+            "orderID" : 123,
             "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
             "tip": 10,
-            "address" : "8989 documentation lane"
+            "address" : "8989 documentation lane",
+            "timeEnd" : "9:00"
+
         },
-        {   "id" : 456,
-            "items" : ["OJ", "milk"],
+        {   "orderID" : 456,
+            "items" : ["eggs", "milk", "batteries"],
             "tip": 1000,
-            "address" : "8989 documentation lane"
+            "address" : "8989 documentation lane",
+            "timeEnd" : "9:00"
         }
 ]
 
@@ -72,8 +75,9 @@ def insert_user(user):
     with conn:
         c.execute("INSERT INTO user VALUES(:first, :last, :driver)", 
         {'first':user["firstName"], 'last':user["lastName"],'driver':user["driver"]})
-        c.execute("INSERT INTO ore VALUES(:first, :last, :id, :item, :time_start, :time_end,:address, :tip)",
-        {'first':user["firstName"], 'last':user["lastName"],'id':1,'item':"", 'time_start': "", 'time_end':"", 'address':"",'tip':0})
+        c.execute("INSERT INTO ore VALUES(:first, :last, :orderID, :items, :time_start, :timeEnd,:address, :tip)",
+        {'first':user["firstName"], 'last':user["lastName"],'orderID':1,'items':"", 'time_start': "", 'timeEnd':"", 'address':"",'tip':0})
+
 
 
 def list_to_string(lis):
@@ -82,9 +86,23 @@ def list_to_string(lis):
         string += (obj + " ")
     return string
 
+def update_order(order, first, last):
+    x = datetime.datetime.now()
+    lis = list_to_string(orders[0]["items"])
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("""UPDATE ore SET 'orderID'= :orderID, items = :items, time_start = :time_start,
+        timeEnd = :timeEnd, address = :address, tip = :tip WHERE first = :first AND last = :last""",
+        {'first':first, 'last':last, 'items':lis, 'time_start':x.strftime("%Y-%m-%d %H:%M"), 
+        'timeEnd':order["timeEnd"], 'address':order["address"], 'tip':order["tip"], 'orderID':order["orderID"]})
+
 # test = list_to_string(orders[0]["items"])
 # print(test)
 # print(type(test))
 # insert_user(users[1])
 # insert_user(users[2])
 # insert_user(users[0])
+
+# update_order(orders[0],'Ted', 'GStone')
+# update_order(orders[1],'Brenda', 'Woo')
