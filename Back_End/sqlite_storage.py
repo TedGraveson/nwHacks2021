@@ -2,28 +2,28 @@ import sqlite3
 import datetime
 # line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
-connect = sqlite3.connect("User_order.db")
-c = connect.cursor()
-c.execute("""CREATE TABLE user(
-                first TEXT,
-                last TEXT,
-                driver INTEGER
-                )""")
+# connect = sqlite3.connect("User_order.db")
+# c = connect.cursor()
+# c.execute("""CREATE TABLE user(
+#                 first TEXT,
+#                 last TEXT,
+#                 driver INTEGER
+#                 )""")
 
-c.execute("""CREATE TABLE ore(
-                first TEXT,
-                last TEXT,
-                orderID INTEGER,
-                items TEXT,
-                time_start TEXT,
-                timeEnd TEXT,
-                address TEXT,
-                tip INTEGER)
-        """)
+# c.execute("""CREATE TABLE ore(
+#                 first TEXT,
+#                 last TEXT,
+#                 orderID INTEGER,
+#                 items TEXT,
+#                 time_start TEXT,
+#                 timeEnd TEXT,
+#                 address TEXT,
+#                 tip INTEGER)
+#         """)
 
-connect.commit()
+# connect.commit()
 
-connect.close()
+# connect.close()
 
 users = [{
                 "firstName" : "Ted",
@@ -121,6 +121,13 @@ def query_user_and_order():
 
     return res_user, res_order
 
+def query_driver(first, last):
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("SELECT * FROM user WHERE first = :first AND last = :last", {'first':first, 'last': last})
+        tup = c.fetchone()
+    return tup[2]
 # test = list_to_string(orders[0]["items"])
 # print(test)
 # print(type(test))
