@@ -52,6 +52,19 @@ users = [{
             }
         ]
 
+orders = [
+        {
+            "id" : 123,
+            "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
+            "tip": 10,
+            "address" : "8989 documentation lane"
+        },
+        {   "id" : 456,
+            "items" : ["OJ", "milk"],
+            "tip": 1000,
+            "address" : "8989 documentation lane"
+        }
+]
 
 def insert_user(user):
     conn = sqlite3.connect("User_order.db")
@@ -63,7 +76,15 @@ def insert_user(user):
         {'first':user["firstName"], 'last':user["lastName"],'id':1,'item':"", 'time_start': "", 'time_end':"", 'address':"",'tip':0})
 
 
+def list_to_string(lis):
+    string = ""
+    for obj in lis:
+        string += (obj + " ")
+    return string
 
+# test = list_to_string(orders[0]["items"])
+# print(test)
+# print(type(test))
 # insert_user(users[1])
 # insert_user(users[2])
 # insert_user(users[0])
