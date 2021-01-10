@@ -1,6 +1,8 @@
 import sqlite3
 import datetime
-from mapping import distance
+import sys
+sys.path.append("Back_end/")
+import mapping
 # line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
 # connect = sqlite3.connect("User_order.db")
@@ -149,7 +151,7 @@ def distance_compare(address, fName, lName, res_user, res_order):
         if((fName != res_order[i][0]) and (lName != res_order[i][1])):
             timeE = res_order[i][5]
             tip = res_order[i][7]
-            dist = distance(address, res_order[i][6])
+            dist = mapping.distance(address, res_order[i][6])
             fir = res_order[i][0]
             las = res_order[i][1]
             res = [dist, fir, las, timeE, tip]

@@ -1,10 +1,11 @@
-from Back_End.sqlite_storage import update_order
+from Back_End.sqlite_storage import distance_compare, query_names, query_user_and_order, update_order
 from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
 sys.path.append("Back_end/")
-from sqlite_storage import insert_user, format_order
+from sqlite_storage import insert_user, format_order, distance_compare
 import json
+import mapping
 
 app = Flask (__name__)
 api = Api(app)
@@ -80,8 +81,11 @@ def driver():
 #Shows all lists in increasing distances
 @app.route("/lists/<address>/")
 def lists(address):
-    give_me_orders(address)
-    return render_template("lists.html", orders = orders)
+    user, order = query_user_and_order()
+    first, last = query_names(address)
+    distance_orders = distance_compare(address, first, last, user, order)
+
+    return render_template("lists.html", orders = distance_orders)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -22,7 +22,6 @@ cap = r.json()
 
 timer = time.split()
 fin = int(timer[0])
-print("Time to destination " + time)
 
 # print(fin)
 # print(type(fin))
