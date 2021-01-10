@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for order in orders %}
+        <div class="card text-center">
+            <div class="card-header">
+                Distance Here
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    Items in order: {{order.size}}
+                <p class="card-text">${{order.tip}}</p>
+                <a href="#" class="btn btn-primary">Contact</a>
+            </div>
+            <div class="card-footer text-muted">
+               Time here
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{%block scripts %}
+<script src="{{url_for('static', filename='scripts/home.js')}}"></script>
+{% endblock %}
