@@ -29,16 +29,16 @@ import mapping
 # connect.close()
 
 users = [{
-                "firstName" : "Ted",
-                "lastName" : "GStone",
+                "firstName" : "Zack",
+                "lastName" : "Reaves",
                 "driver" : True,
                 "timeStart": {"09/01/21": "09:00"},
                 "phoneNumber" : 1234567890,
                 "orderID" : None
             },
             {
-                "firstName" : "Brenda",
-                "lastName" : "Woo",
+                "firstName" : "Ryan",
+                "lastName" : "Wong",
                 "driver" : False,
                 "timeStart": {"09/01/21": "11:00"},
                 "phoneNumber" : 1234567890,
@@ -57,18 +57,18 @@ users = [{
 
 orders = [
         {
-            "orderID" : 123,
-            "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
-            "tip": 10,
-            "address" : "8989 documentation lane",
-            "timeEnd" : "9:00"
+            "orderID" : 300,
+            "items" : [],
+            "tip": 0,
+            "address" : "4545 Central Blvd, Burnaby, BC V5H 4J5",
+            "timeEnd" : "11:00"
 
         },
-        {   "orderID" : 456,
-            "items" : ["eggs", "milk", "batteries"],
-            "tip": 1000,
-            "address" : "8989 documentation lane",
-            "timeEnd" : "9:00"
+        {   "orderID" : 500,
+            "items" : ["bread", "cheese", "carpet","comics"],
+            "tip": 10,
+            "address" : "8800 Eastlake Dr, Burnaby, BC V3J 7X5",
+            "timeEnd" : "10:00"
         }
 ]
 
@@ -79,8 +79,12 @@ def format_order(list_post):
     order['tip'] = list_post['tip']
     order['address'] = list_post['address']
     order['time_start'] = "lmao"
+<<<<<<< Updated upstream
     order['timeEnd'] = date_fix(list_post['date'])
     return order
+=======
+    order['timeEnd'] - date_fix(list_post['date'])
+>>>>>>> Stashed changes
 
 def insert_user(user):
     conn = sqlite3.connect("User_order.db")
@@ -145,16 +149,16 @@ def query_names(address):
 def take_first(lis):
     return lis[0]
 
-def distance_compare(address, fName, lName, res_user, res_order):
+def distance_compare(address, res_user, res_order):
     valid = []
     for i in range(len(res_order)):
-        if((fName != res_order[i][0]) and (lName != res_order[i][1])):
+        if(res_user[i][2] == 0):
             timeE = res_order[i][5]
-            tip = res_order[i][7]
-            dist = mapping.distance(address, res_order[i][6])
+            tip = res_order[i][7]e(address, res_order[i][6])
             fir = res_order[i][0]
             las = res_order[i][1]
-            res = [dist, fir, las, timeE, tip]
+            res = [dist, fir, las, timeE, tip
+            dist = mapping.distanc]
             valid.append(res)
 
     valid.sort(key=take_first)
@@ -171,9 +175,12 @@ def distance_compare(address, fName, lName, res_user, res_order):
 # insert_user(users[2])                                          
 # insert_user(users[0])
 
-# update_order(orders[0],'Ted', 'GStone')
-# update_order(orders[1],'Brenda', 'Woo')
+# update_order(orders[0],'Zack', 'Reaves')
+update_order(orders[1],'Ryan', 'Wong')
 # che_use, che_ore = query_user_and_order()
 # print(che_use)
 # print(che_ore)
 # print(len(che_ore))
+# a,b = query_names("8989 documentation lane")
+# print(a)
+# print(b)
