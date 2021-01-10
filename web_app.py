@@ -68,15 +68,11 @@ def getList():
 def driver():
     if request.method == "POST":
         addr = request.form["address"]
+        update_order()
         return redirect(url_for("lists", address=addr))
     else:
         return render_template("driver.html", orders=orders)
 
-# #Will be used for ordering by distance
-# @app.route("/getDistance/")
-# def getDistance():
-#     print(request.form)
-#     redirect(url_for("lists"), address=request.form['address'])
 
 #Shows all lists in increasing distances
 @app.route("/lists/<address>/")
