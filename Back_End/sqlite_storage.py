@@ -1,5 +1,6 @@
 import sqlite3
 import datetime
+from overnight import date_fix
 # line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
 # connect = sqlite3.connect("User_order.db")
@@ -68,6 +69,15 @@ orders = [
             "timeEnd" : "9:00"
         }
 ]
+
+def create_order(list_post):
+    order = {}
+    order['orderID'] = 123
+    order['items'] = list_post['items']
+    order['tip'] = list_post['tip']
+    order['address'] = list_post['address']
+    order['timeStart'] = "lmao"
+    order['timeEnd'] - date_fix(list_post['date'])
 
 def insert_user(user):
     conn = sqlite3.connect("User_order.db")

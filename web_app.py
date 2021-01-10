@@ -2,7 +2,8 @@ from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
 sys.path.append("Back_end/")
-from sqlite_storage import insert_user
+from sqlite_storage import insert_user, create_order
+import json
 
 app = Flask (__name__)
 api = Api(app)
@@ -37,23 +38,29 @@ def login():
         print(request.form['driver'])
         insert_user(request.form)
         if request.form["driver"] == "1":
-            
             return redirect(url_for("driver"))
         else:
-            return redirect(url_for("makeList"))
+            firstName =  request.form['firstName']
+            lastName = request.form['lastName']
+            print(firstName)
+            print(lastName)
+            return redirect(url_for("makeList", first = firstName, last = lastName))
     else:
         return render_template("home.html")
 
-@app.route("/makeList/")
-def makeList():
-    return render_template("createList.html")
+#Creating a new list for the database
+@app.route("/makeList/<first>?<last>")
+def makeList(first, last):
+    return render_template("createList.html", first = first, last = last)
 
 #Handles POST request from makeList, where user creates list
 @app.route("/getList/", methods = ['POST'])
 def getList():    
     #Storing to SQL
-    insert_user(request.form)
-    return request.form['items']
+    print(request.form)
+    orders.append(create_order(request.forms))
+    print(orders)
+    return ""
 
 @app.route("/driver/", methods=["GET", "POST"])
 def driver():

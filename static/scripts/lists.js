@@ -1,11 +1,14 @@
 let listBtn = document.getElementById("list-btn");
 let listItem = document.getElementById("list-item");
-let list = document.getElementById("list")
-listSub = document.getElementById("submit-list")
+let list = document.getElementById("list");
+listSub = document.getElementById("submit-list");
 let listArray = [];
-let date = document.getElementById("date-time")
-let address = document.getElementById("address")
-let tip = document.getElementById("tip")
+let date = document.getElementById("date-time");
+let address = document.getElementById("address");
+let tip = document.getElementById("tip");
+let firstName = document.getElementById("firstName");
+let lastName = document.getElementById("lastName");
+
 
 listBtn.addEventListener("click", function() {addListItem(listItem.value)});
 listItem.addEventListener("keyup", function(event) {
@@ -33,16 +36,19 @@ function postList() {
     $.post( "/getList/",
     {    
         items : JSON.stringify(listArray),
-        timeEnd  : JSON.stringify(date.value),
-        address : JSON.stringify(address.value),
-        date : JSON.stringify(date.value),
-        tip : JSON.stringify(tip.value)
+        timeEnd  : date.value,
+        address : address.value,
+        date : date.value,
+        tip : tip.value,
+        first : firstName.innerHTML,
+        last : lastName.innerHTML
     },
     function() {
         listArray = [];
         listItem.value = null;
         list.innerHTML = "";
-        console.log(JSON.stringify(listArray));
+        console.log("Sent");
+        
     });
 };
 
