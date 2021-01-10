@@ -5,10 +5,10 @@ import requests
 api_key = "AIzaSyBsiUB5LFI3bYXjUjoIlkMQJXtIxu8PImE"
 
 #start point for matrix
-begin = "4266 Gilpin Crescent, Burnaby, BC V5G 2K2, Canada"
+begin = "Vancouver, BC V6T 1Z4"
 
 #end point for matrix
-finish = "3711 Wakefield Court, Burnaby, BC"
+finish = "8888 University Dr, Burnaby, BC V5A 1S6"
 
 #base url
 url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
@@ -22,7 +22,7 @@ cap = r.json()
 
 timer = time.split()
 fin = int(timer[0])
-print("Time to teddy G's place " + time)
+print("Time to destination " + time)
 
 # print(fin)
 # print(type(fin))
