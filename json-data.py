@@ -1,6 +1,6 @@
 
 import json
-users = {   "user1" : {
+users = [{
                 "firstName" : "Ted",
                 "lastName" : "GStone",
                 "driver" : True,
@@ -8,7 +8,7 @@ users = {   "user1" : {
                 "phoneNumber" : 1234567890,
                 "orderID" : None
             },
-            "user2" :  {
+            {
                 "firstName" : "Brenda",
                 "lastName" : "Woo",
                 "driver" : False,
@@ -17,7 +17,7 @@ users = {   "user1" : {
                 "orderID" : 123
             },
 
-            "user3" : {
+            {
                 "firstName" : "Sally",
                 "lastName" : "May",
                 "driver" : True,
@@ -25,22 +25,22 @@ users = {   "user1" : {
                 "phoneNumber" : 1234567890,
                 "orderID" : None
             }
-        }
+        ]
 
 
 orders = {
-    "order1": {
         "id" : 123,
         "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
         "tip": 10,
         "address" : "8989 documentation lane"
     }
-}
 
 
 jsonUsers = json.dumps(users)
 jsonOrders = json.dumps(orders)
 
 testUsers = json.loads(jsonUsers)
-print(testUsers["user2"]["driver"])
+
+for user in testUsers:
+    print(user)
 
