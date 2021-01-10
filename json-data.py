@@ -28,12 +28,19 @@ users = [{
         ]
 
 
-orders = {
-        "id" : 123,
-        "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
-        "tip": 10,
-        "address" : "8989 documentation lane"
-    }
+orders = [
+        {
+            "id" : 123,
+            "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
+            "tip": 10,
+            "address" : "8989 documentation lane"
+        },
+        {   "id" : 456,
+            "items" : ["OJ", "milk", ],
+            "tip": 1000,
+            "address" : "8989 documentation lane"
+        }
+]
 
 
 jsonUsers = json.dumps(users)
