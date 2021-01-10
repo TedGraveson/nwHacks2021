@@ -97,12 +97,27 @@ def update_order(order, first, last):
         {'first':first, 'last':last, 'items':lis, 'time_start':x.strftime("%Y-%m-%d %H:%M"), 
         'timeEnd':order["timeEnd"], 'address':order["address"], 'tip':order["tip"], 'orderID':order["orderID"]})
 
+def query_user_and_order():
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("SELECT * FROM user")
+        res_user = c.fetchall()
+        c.execute("SELECT * FROM ore")
+        res_order = c.fetchall()
+
+    return res_user, res_order
+
 # test = list_to_string(orders[0]["items"])
 # print(test)
 # print(type(test))
 # insert_user(users[1])
-# insert_user(users[2])
+# insert_user(users[2])                                          
 # insert_user(users[0])
 
 # update_order(orders[0],'Ted', 'GStone')
 # update_order(orders[1],'Brenda', 'Woo')
+# che_use, che_ore = query_user_and_order()
+# print(che_use)
+# print(che_ore)
+# print(len(che_ore))
