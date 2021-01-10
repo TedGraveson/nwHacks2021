@@ -31,9 +31,10 @@ function addListItem(item) {
 function postList() {
     $.post( "/getList/",
     {    
-        "list" : JSON.stringify(listArray)
+        list : JSON.stringify(listArray)
     },
     function() {
         console.log(JSON.stringify(listArray));
+        
     });
 };
