@@ -1,6 +1,8 @@
 import sqlite3
 import datetime
-from overnight import date_fix
+import sys
+sys.path.append("Back_end/")
+import mapping
 # line 5-26 is the cmd to create the databases, errors will occur 
 # if ran more than once, but must be ran once to create the DB
 # connect = sqlite3.connect("User_order.db")
@@ -70,14 +72,15 @@ orders = [
         }
 ]
 
-def create_order(list_post):
+def format_order(list_post):
     order = {}
     order['orderID'] = 123
     order['items'] = list_post['items']
     order['tip'] = list_post['tip']
     order['address'] = list_post['address']
-    order['timeStart'] = "lmao"
-    order['timeEnd'] - date_fix(list_post['date'])
+    order['time_start'] = "lmao"
+    order['timeEnd'] = date_fix(list_post['date'])
+    return order
 
 def insert_user(user):
     conn = sqlite3.connect("User_order.db")
@@ -88,7 +91,10 @@ def insert_user(user):
         c.execute("INSERT INTO ore VALUES(:first, :last, :orderID, :items, :time_start, :timeEnd,:address, :tip)",
         {'first':user["firstName"], 'last':user["lastName"],'orderID':1,'items':"", 'time_start': "", 'timeEnd':"", 'address':"",'tip':0})
 
-
+def date_fix(date):
+    string = date.split('T')
+    ans = string[0] + " " + string[1]
+    return ans
 
 def list_to_string(lis):
     string = ""
@@ -98,7 +104,7 @@ def list_to_string(lis):
 
 def update_order(order, first, last):
     x = datetime.datetime.now()
-    lis = list_to_string(orders[0]["items"])
+    lis = list_to_string(order["items"])
     conn = sqlite3.connect("User_order.db")
     c=conn.cursor()
     with conn:
@@ -118,6 +124,46 @@ def query_user_and_order():
 
     return res_user, res_order
 
+def query_driver(first, last):
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("SELECT * FROM user WHERE first = :first AND last = :last", {'first':first, 'last': last})
+        tup = c.fetchone()
+    return tup[2]
+
+def query_names(address):
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("SELECT * FROM ore WHERE address = :address", {'address':address})
+        tup = c.fetchone()
+        first = tup[0]
+        last = tup[1]
+    return first, last
+
+def take_first(lis):
+    return lis[0]
+
+def distance_compare(address, fName, lName, res_user, res_order):
+    valid = []
+    for i in range(len(res_order)):
+        if((fName != res_order[i][0]) and (lName != res_order[i][1])):
+            timeE = res_order[i][5]
+            tip = res_order[i][7]
+            dist = mapping.distance(address, res_order[i][6])
+            fir = res_order[i][0]
+            las = res_order[i][1]
+            res = [dist, fir, las, timeE, tip]
+            valid.append(res)
+
+    valid.sort(key=take_first)
+
+    return valid
+
+#okay i kinda got lazy but like for the unique id think I still think the global counter
+#could work despite python being a pain to deal with with the global vars. Hopefully this
+#work will be semi useful (???)
 # test = list_to_string(orders[0]["items"])
 # print(test)
 # print(type(test))

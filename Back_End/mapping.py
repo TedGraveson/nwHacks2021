@@ -22,7 +22,6 @@ cap = r.json()
 
 timer = time.split()
 fin = int(timer[0])
-print("Time to destination " + time)
 
 # print(fin)
 # print(type(fin))
@@ -33,5 +32,3 @@ def distance(start, end):
     ans = int(piece[0])
     return ans
 
-print(distance(begin, finish))
-print(type(distance(begin, finish)))

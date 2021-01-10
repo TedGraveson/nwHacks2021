@@ -1,9 +1,11 @@
+from Back_End.sqlite_storage import distance_compare, query_names, query_user_and_order, update_order
 from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
 sys.path.append("Back_end/")
-from sqlite_storage import insert_user, create_order
+from sqlite_storage import insert_user, format_order, distance_compare
 import json
+import mapping
 
 app = Flask (__name__)
 api = Api(app)
@@ -35,7 +37,6 @@ def home():
 def login():
     #User form submission on home page
     if request.method == "POST":
-        print(request.form['driver'])
         insert_user(request.form)
         if request.form["driver"] == "1":
             return redirect(url_for("driver"))
@@ -57,11 +58,12 @@ def makeList(first, last):
 @app.route("/getList/", methods = ['POST'])
 def getList():    
     #Storing to SQL
-    print(request.form)
-    orders.append(create_order(request.forms))
-    print(orders)
+    orderToAdd = format_order(request.form)
+    print(orderToAdd)
+    update_order(orderToAdd, request.form['first'], request.form['last'])
     return ""
 
+#Gets address from driver
 @app.route("/driver/", methods=["GET", "POST"])
 def driver():
     if request.method == "POST":
@@ -76,9 +78,14 @@ def driver():
 #     print(request.form)
 #     redirect(url_for("lists"), address=request.form['address'])
 
+#Shows all lists in increasing distances
 @app.route("/lists/<address>/")
 def lists(address):
-    return render_template("lists.html", orders = orders)
+    user, order = query_user_and_order()
+    first, last = query_names(address)
+    distance_orders = distance_compare(address, first, last, user, order)
+
+    return render_template("lists.html", orders = distance_orders)
 
 if __name__ == "__main__":
     app.run(debug=True)

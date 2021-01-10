@@ -1,5 +1,5 @@
 import requests
-from mapping import distance
+#from mapping import distance
 
 #the code for formatting the date that will be passed from front. 
 #You said the date will have to be passed in a specific way so this
