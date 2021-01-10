@@ -5,14 +5,46 @@
         <h2>Welcome to<br><h2>
         <h1>On the Way!</h1>
     </section>
-    <form class="text-center">
-        <input type="radio" class="btn-check btn-block" name="options-outlined" id="success-outlined" autocomplete="off" checked>
-        <label class="btn btn-lg btn-outline-success" for="success-outlined">I am on my way!</label>
-
-        <input type="radio" class="btn-check btn-block" name="options-outlined" id="danger-outlined" autocomplete="off">
-        <label class="btn btn-lg btn-outline-danger" for="danger-outlined">Looking for someone OTW</label>    
-    <form>
-    
+    <form class="justify-content-center" id = "home-form" method= "POST" action="#">
+        <div class="form-group row">
+            <label for="first-name" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+                <input name="firstName" type="text" class="form-control" id="first-name" placeholder="First">
+            </div>
+            <label for="last-name" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="last-name" placeholder="Last">
+            </div>
+        </div>
+            
+        <fieldset class="form-group">
+            <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Status</legend>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Driver" checked>
+                    <label class="form-check-label" for="gridRadios1">
+                        I'm on the way
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="List">
+                    <label class="form-check-label" for="gridRadios2">
+                        I have a list
+                    </label>
+                </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+        </div>
     </form>
-<div>
+    
+
+{% endblock %}
+{%block scripts %}
+<script src="{{url_for('static', filename='scripts/home.js')}}"></script>
 {% endblock %}

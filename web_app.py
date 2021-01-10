@@ -6,6 +6,13 @@ api = Api(app)
 
 @app.route("/")
 def home():
+    return render_template("base.html")
+
+@app.route("/login/", methods =['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        user = request.form["firstName"]
+        print(user)
     return render_template("home.html")
 
 
