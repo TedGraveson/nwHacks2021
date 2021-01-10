@@ -29,49 +29,25 @@ def home():
 
 @app.route("/login/", methods =['GET', 'POST'])
 def login():
+    #User form submission on home page
     if request.method == "POST":
-        first = request.form["firstName"]
-        # last = request.form["lastName"]
-        # driver = 
-        # print(user)
-        print(request.get_data())
-        return redirect(url_for("user", usr=first))
-    return render_template("home.html")
-
-@app.route("/<usr>/")
-def user(usr):
-    return f"<h1>{usr}</h1>"
+        print(request.form["driver"])
+        if request.form["driver"] == "1":
+            return redirect(url_for("driver"))
+        else:
+            return redirect(url_for("lists"))
+    else:
+        return render_template("home.html")
 
 
-@app.route("/<usr>/driver")
-def driver(usr):
+@app.route("/driver/")
+def driver():
     return render_template("driver.html", orders=orders)
+
+@app.route("/lists/")
+def lists():
+    return render_template("lists.html", orders = orders)
 
 if __name__ == "__main__":
     app.run(debug=True)
-# users = [
-#         {  "firstName" : "Ted",
-#             "lastName" : "GStone",
-#             "driver" : True,
-#             "timeStart": {"09/01/21": "09:00"},
-#             "phoneNumber" : 1234567890,
-#             "orderID" : None
-#         },
-#         {
-#             "firstName" : "Brenda",
-#             "lastName" : "Woo",
-#             "driver" : False,
-#             "timeStart": {"09/01/21": "11:00"},
-#             "phoneNumber" : 1234567890,
-#             "orderID" : 123
-#         },
 
-#         {
-#             "firstName" : "Sally",
-#             "lastName" : "May",
-#             "driver" : True,
-#             "timeStart": {"09/01/21": "09:00"},
-#             "phoneNumber" : 1234567890,
-#             "orderID" : None
-#         }
-# ]
