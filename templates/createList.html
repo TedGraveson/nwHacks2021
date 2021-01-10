@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="input-group mb-3">
+  <input type="text" id="list-item" class="form-control" placeholder="Add a list item..." aria-label="Field for adding a list item" aria-describedby="input-for-list">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" id="list-btn" type="button">Add</button>
+  </div>
+</div>
+<div class="container d-flex justify-content-center" id="list-wrapper" >
+    <div class="card w-80" style="width: 18rem;">
+        <div class="card-header">
+            List:
+        </div>
+        <ul class="list-group list-group-flush" id="list">
+        </ul>
+        <button id="submit-list" class="btn btn-primary w-100">Submit List</button>
+    </div>
+</div>
+{% endblock %}
+
+{%block scripts %}
+<script src="{{url_for('static', filename='scripts/lists.js')}}"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+{% endblock %}
