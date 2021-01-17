@@ -1,8 +1,9 @@
+import sys
+sys.path.append("Back_end/")
 import mapping
 import sqlite3
 import datetime
-import sys
-sys.path.append("Back_end/")
+
 
 # line 5-26 is the cmd to create the databases, errors will occur
 # if ran more than once, but must be ran once to create the DB
