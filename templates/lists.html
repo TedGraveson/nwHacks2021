@@ -1,18 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
     {% for order in orders %}
-        <div class="card text-center">
-            <div class="card-header">
-                Distance Here
+        <div class="card text-center d-flex w-50 mb-3">
+            <div class="card-header text-white" style="background-color: #198754;">
+                {{order.distance}} km from your chosen address
             </div>
-            <div class="card-body">
+            <div class="card-body bg-light">
                 <h5 class="card-title">
-                    Items in order: {{order.size}}
+                    Items to pick up: {{order.size}}
                 <p class="card-text">${{order.tip}}</p>
                 <a href="#" class="btn btn-primary">Contact</a>
-            </div>
-            <div class="card-footer text-muted">
-               Time here
             </div>
         </div>
     {% endfor %}

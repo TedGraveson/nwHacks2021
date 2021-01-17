@@ -1,7 +1,7 @@
 let listBtn = document.getElementById("list-btn");
 let listItem = document.getElementById("list-item");
 let list = document.getElementById("list");
-listSub = document.getElementById("submit-list");
+let listSub = document.getElementById("submit-list");
 let listArray = [];
 let date = document.getElementById("date-time");
 let address = document.getElementById("address");
@@ -16,10 +16,16 @@ listItem.addEventListener("keyup", function(event) {
         listBtn.click();
     }
 });
-listSub.addEventListener("click", function() {
-    postList(list);
-});
 
+//Stops enter from hitting form
+$(document).ready(function() {
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
 function addListItem(item) {
     if (item !== "") {
         let node = document.createElement("LI");
@@ -32,23 +38,28 @@ function addListItem(item) {
     }
 };
 
-function postList() {
-    $.post( "/getList/",
-    {    
-        items : JSON.stringify(listArray),
-        timeEnd  : date.value,
-        address : address.value,
-        date : date.value,
-        tip : tip.value,
-        first : firstName.innerHTML,
-        last : lastName.innerHTML
-    },
-    function() {
-        listArray = [];
-        listItem.value = null;
-        list.innerHTML = "";
-        console.log("Sent");
-        
-    });
-};
+
+
+
+// $(listSub).click(function(e) {
+//     e.preventDefault();
+//     $.ajax({
+//         type: "POST",
+//         url: document.url,
+//         data: JSON.stringify({
+//             items : listArray,
+//             timeEnd  : date.value,
+//             address : address.value,
+//             date : date.value,
+//             tip : tip.value
+//         }),
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function(data){
+//             window.location.replace(`${response.data}`);},
+//         failure: function(errMsg) {
+//             alert(errMsg);
+//         }
+//     })
+//     });
 

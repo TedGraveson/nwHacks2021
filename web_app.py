@@ -15,17 +15,23 @@ orders = [
             "id" : 123,
             "items" : ["bread", "eggs", "milk", "batteries", "toaster"],
             "tip": 10,
-            "address" : "8989 documentation lane"
+            "address" : "8989 documentation lane",
+            "size": 5,
+            "distance":0.5
         },
         {   "id" : 456,
             "items" : ["OJ", "milk"],
             "tip": 1000,
-            "address" : "8989 documentation lane"
+            "address" : "8989 documentation lane",
+            "size" : 3,
+            "distance": 0.7
         },
         {   "id" : 456,
             "items" : ["OJ", "milk"],
             "tip": 1000,
-            "address" : "8989 documentation lane"
+            "address" : "8989 documentation lane",
+            "size" : 7,
+            "distance": 1.2
         }
 ]
 
@@ -43,32 +49,32 @@ def login():
         else:
             firstName =  request.form['firstName']
             lastName = request.form['lastName']
-            print(firstName)
-            print(lastName)
-            return redirect(url_for("makeList", first = firstName, last = lastName))
+            userName = firstName + " " + lastName
+            print(userName)
+            return redirect(url_for("makeList", user = userName))
     else:
         return render_template("home.html")
 
 #Creating a new list for the database
-@app.route("/makeList/<first>?<last>")
-def makeList(first, last):
-    return render_template("createList.html", first = first, last = last)
+@app.route("/<user>/makeList/", methods = ['GET', 'POST'])
+def makeList(user):
+    first_name = user.split()[0]
+    last_name = user.split()[1]
+    if request.method == 'POST':
+        print(request.get_json())
+        # orderToAdd = request.form.to_dict()
+        # orderToAdd = format_order(orderToAdd)
+        # update_order(orderToAdd, first_name, last_name)
+        return redirect(url_for("login"))
+    else:
+        return render_template("createList.html", first = first_name, last = last_name)
 
-#Handles POST request from makeList, where user creates list
-@app.route("/getList/", methods = ['POST'])
-def getList():    
-    #Storing to SQL
-    orderToAdd = format_order(request.form)
-    print(orderToAdd)
-    update_order(orderToAdd, request.form['first'], request.form['last'])
-    return ""
 
 #Gets address from driver
 @app.route("/driver/", methods=["GET", "POST"])
 def driver():
     if request.method == "POST":
         addr = request.form["address"]
-        update_order()
         return redirect(url_for("lists", address=addr))
     else:
         return render_template("driver.html", orders=orders)
@@ -77,11 +83,10 @@ def driver():
 #Shows all lists in increasing distances
 @app.route("/lists/<address>/")
 def lists(address):
-    user, order = query_user_and_order()
-    first, last = query_names(address)
-    distance_orders = distance_compare(address, first, last, user, order)
-
-    return render_template("lists.html", orders = distance_orders)
+    # user, order = query_user_and_order()
+    # first, last = query_names(address)
+    # distance_orders = distance_compare(address, first, last, user, order)
+    return render_template("lists.html", orders = orders)
 
 if __name__ == "__main__":
     app.run(debug=True)
