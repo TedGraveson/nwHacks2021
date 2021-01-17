@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, render_template, request
 from flask_restful import Api, Resource, reqparse, abort
 import sys
 sys.path.append("Back_end/")
-from sqlite_storage import insert_user, format_order, distance_compare
+from sqlite_storage import insert_user, format_order, distance_compare, get_all_orders
 import json
 import mapping
 
@@ -76,7 +76,7 @@ def driver():
         addr = request.form["address"]
         return redirect(url_for("lists", address=addr))
     else:
-        return render_template("driver.html", orders=orders)
+        return render_template("driver.html", orders="bruh")
 
 
 #Shows all lists in increasing distances
@@ -85,7 +85,8 @@ def lists(address):
     # user, order = query_user_and_order()
     # first, last = query_names(address)
     # distance_orders = distance_compare(address, first, last, user, order)
-    return render_template("lists.html", orders = orders)
+    print(get_all_orders())
+    return render_template("lists.html", orders = get_all_orders())
 
 if __name__ == "__main__":
     app.run(debug=True)

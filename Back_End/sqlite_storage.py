@@ -152,6 +152,13 @@ def query_user_and_order():
 
     return res_user, res_order
 
+def get_all_orders():
+    conn = sqlite3.connect("User_order.db")
+    c=conn.cursor()
+    with conn:
+        c.execute("SELECT * FROM ore")
+        res_order = c.fetchall()
+    return res_order
 
 def query_driver(first, last):
     conn = sqlite3.connect("user_order.db")
