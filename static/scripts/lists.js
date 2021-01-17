@@ -17,6 +17,7 @@ listItem.addEventListener("keyup", function(event) {
     }
 });
 
+
 //Stops enter from hitting form
 $(document).ready(function() {
     $(window).keydown(function(event){
@@ -26,6 +27,7 @@ $(document).ready(function() {
       }
     });
   });
+
 function addListItem(item) {
     if (item !== "") {
         let node = document.createElement("LI");
@@ -41,25 +43,26 @@ function addListItem(item) {
 
 
 
-// $(listSub).click(function(e) {
-//     e.preventDefault();
-//     $.ajax({
-//         type: "POST",
-//         url: document.url,
-//         data: JSON.stringify({
-//             items : listArray,
-//             timeEnd  : date.value,
-//             address : address.value,
-//             date : date.value,
-//             tip : tip.value
-//         }),
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         success: function(data){
-//             window.location.replace(`${response.data}`);},
-//         failure: function(errMsg) {
-//             alert(errMsg);
-//         }
-//     })
-//     });
+$(listSub).click(function(e) {
+    console.log("yo")
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: document.url,
+        data: JSON.stringify({
+            "items" : listArray,
+            "timeEnd"  : date.value,
+            "address" : address.value,
+            "date" : date.value,
+            "tip" : tip.value
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            window.location.replace(`${response.data}`);},
+        failure: function(errMsg) {
+            alert(errMsg);
+        }
+    })
+    });
 

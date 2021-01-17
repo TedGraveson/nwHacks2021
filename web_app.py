@@ -61,10 +61,10 @@ def makeList(user):
     first_name = user.split()[0]
     last_name = user.split()[1]
     if request.method == 'POST':
-        print(request.get_json())
-        # orderToAdd = request.form.to_dict()
+        print(type(request.get_json()))
+        # orderToAdd = request.form
         # orderToAdd = format_order(orderToAdd)
-        # update_order(orderToAdd, first_name, last_name)
+        # update_order(orderToAdd)
         return redirect(url_for("login"))
     else:
         return render_template("createList.html", first = first_name, last = last_name)
