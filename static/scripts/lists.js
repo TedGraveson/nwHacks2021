@@ -10,59 +10,60 @@ let firstName = document.getElementById("firstName");
 let lastName = document.getElementById("lastName");
 
 
-listBtn.addEventListener("click", function() {addListItem(listItem.value)});
-listItem.addEventListener("keyup", function(event) {
-    if(event.key == "Enter") {
-        listBtn.click();
-    }
-});
+// listBtn.addEventListener("click", function() {addListItem(listItem.value)});
+// listItem.addEventListener("keyup", function(event) {
+//     if(event.key == "Enter") {
+//         listBtn.click();
+//     }
+// });
 
 
 //Stops enter from hitting form
-$(document).ready(function() {
-    $(window).keydown(function(event){
-      if(event.keyCode == 13) {
-        event.preventDefault();
-        return false;
-      }
-    });
-  });
+// $(document).ready(function() {
+//     $(window).keydown(function(event){
+//       if(event.keyCode == 13) {
+//         event.preventDefault();
+//         return false;
+//       }
+//     });
+//   });
 
-function addListItem(item) {
-    if (item !== "") {
-        let node = document.createElement("LI");
-        let textNode = document.createTextNode(item);
-        node.appendChild(textNode);
-        node.classList = "list-group-item"
-        list.appendChild(node)
-        listArray.push(item)
-        listItem.value = null;
-    }
-};
-
-
+// function addListItem(item) {
+//     if (item !== "") {
+//         let node = document.createElement("LI");
+//         let textNode = document.createTextNode(item);
+//         node.appendChild(textNode);
+//         node.classList = "list-group-item"
+//         list.appendChild(node)
+//         listArray.push(item)
+//         listItem.value = null;
+//     }
+// };
 
 
-$(listSub).click(function(e) {
-    console.log("yo")
-    e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: document.url,
-        data: JSON.stringify({
-            "items" : listArray,
-            "timeEnd"  : date.value,
-            "address" : address.value,
-            "date" : date.value,
-            "tip" : tip.value
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data){
-            window.location.replace(`${response.data}`);},
-        failure: function(errMsg) {
-            alert(errMsg);
-        }
-    })
-    });
+
+
+// $(listSub).click(function(e) {
+//     console.log("yo")
+//     e.preventDefault();
+//     $.ajax({
+//         type: "POST",
+//         url: document.url,
+//         data: JSON.stringify({
+//             "items" : listArray,
+//             "timeEnd"  : date.value,
+//             "address" : address.value,
+//             "date" : date.value,
+//             "tip" : tip.value
+//         }),
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function(data){
+//             document.location.href=${response.data};
+//         }
+//         failure: function(errMsg) {
+//             alert(errMsg);
+//         }
+//     })
+//     });
 

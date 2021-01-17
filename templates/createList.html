@@ -3,36 +3,27 @@
 {% block content %}
 <div class="container d-flex justify-content-center" id="list-wrapper" >
     <div class="card w-80 bg-light" style="width: 18rem;">
-    <form action="#" method="POST" onkeydown="return event.key != 'Enter';">
-        <div class="input-group">
-            <input type="text" id="list-item" class="form-control" placeholder="Add a list item..." aria-label="Field for adding a list item" aria-describedby="input-for-list">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" id="list-btn" type="button">Add</button>
-            </div>
-        </div>
-        <div class="card-header">
-            List:
-        </div>
-        <ul class="list-group list-group-flush" id="list">
-        </ul>
-        <div class="container w-70 bg-light">
-            <div class="form-group row">
-                <label for="example-number-input" class="col-form-label">Tip $:</label>
-                <input class="form-control" type="number" id="tip" placeholder="5" value="">
-            </div>
-            <div class="form-group row">
-                <label for="inputAddress">Address:</label>
-                <input type="text" class="form-control" id="address" placeholder="1234 Main St" value"">
-            </div>
-            <div class="form-group row">
-                <label for="example-datetime-local-input" class="col-form-label">Stay posted until:</label>
-                <input class="form-control" type="datetime-local" id="date-time" value="">
-            </div>
-            <div class="form-group row">
-                <button id="submit-list" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
+        <form action="#" method="POST" id="order-form">
+                <div class="form-group">
+                    <label for="list-item" class="col-form-label">List:</label>
+                    <textarea class="form-control" id="list-items" name="items" rows="3" placeholder="List here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="example-number-input" class="col-form-label">Tip $:</label>
+                    <input class="form-control" type="number" name="tip" placeholder="5">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address:</label>
+                    <input type="text" class="form-control" name="address" placeholder="1234 Main St">
+                </div>
+                <div class="form-group">
+                    <label for="example-datetime-local-input" class="col-form-label">Stay posted until:</label>
+                    <input class="form-control" type="datetime-local" name="date">
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary m-2">Submit</button>
+                </div>
+        </form>
     </div>
 </div>
 {% endblock %}

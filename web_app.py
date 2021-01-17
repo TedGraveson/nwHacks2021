@@ -37,7 +37,7 @@ orders = [
 
 @app.route("/")
 def home():
-    return render_template("base.html")
+    return redirect(url_for("login"))
 
 @app.route("/login/", methods =['GET', 'POST'])
 def login():
@@ -61,10 +61,9 @@ def makeList(user):
     first_name = user.split()[0]
     last_name = user.split()[1]
     if request.method == 'POST':
-        print(type(request.get_json()))
-        # orderToAdd = request.form
-        # orderToAdd = format_order(orderToAdd)
-        # update_order(orderToAdd)
+        orderToAdd = request.form
+        update_order(format_order(orderToAdd),first_name, last_name)
+
         return redirect(url_for("login"))
     else:
         return render_template("createList.html", first = first_name, last = last_name)
